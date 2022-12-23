@@ -43,6 +43,11 @@ Profile_plot_Sr_XRF_offset <- ggplot(dat) +
     geom_line(aes(Distance,
             SrCa * 1000 + as.numeric(Specimen_id) * 2,
             col = Specimen)) +
+    geom_ribbon(aes(x = Distance,
+            ymax = SrCa * 1000 + as.numeric(Specimen_id) * 2,
+            ymin = 1.5 + as.numeric(Specimen_id) * 2,
+            fill = Specimen),
+        alpha = 0.3) +
     scale_y_continuous("[Sr]/[Ca] (mmol/mol)",
         breaks = seq(0, 20, 2),
         labels = seq(0, 20, 2),
