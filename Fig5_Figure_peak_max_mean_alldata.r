@@ -1,4 +1,5 @@
 # Plot overview of peak heights for all specimens and all elements
+# Project "LAICPMS_Sr_spiking"
 
 require(tidyverse)
 require(readxl)
@@ -40,7 +41,7 @@ for(i in dfnames_batch1){
     df$MgCa24 <- df$CaCa <- df$CaCa44 <- df$CaCa48 <- df$SrCa87 <- NULL
     df$Specimen <- paste(strsplit(i, "_")[[1]][2], strsplit(i, "_")[[1]][3], sep = "_")
     df$Species <- strsplit(i, "_")[[1]][1]
-    df$Distance <- df$Depth * 1000 # Due to lack of X and Y export, Distance for batch1 is set equal to the "Depth" value calculated from the scan time (in micrometer)
+    df$Distance <- df$Depth * 1000 # Convert to micrometer
     assign(i, df)
 }
 
@@ -337,33 +338,28 @@ Resultmat_clean$Plot_X <- match(Resultmat_clean$Specimen, unique(Resultmat_clean
 TEpeaks_plot_Na <- ggplot(Resultmat_clean) +
     geom_point(aes(Plot_X,
             Na_mean - Na_bkg,
-            alpha = Na_mean > Na_bkg,
             color = Species)
     ) +
     geom_point(aes(Plot_X,
             Na_peak - Na_bkg,
-            alpha = Na_peak > Na_bkg,
             color = Species)
     ) +
     geom_linerange(aes(x = Plot_X,
             ymin = Na_mean - Na_bkg,
             ymax = Na_peak - Na_bkg,
-            color = Species,
-            alpha = Na_peak > Na_bkg)
+            color = Species)
     ) +
     geom_text_repel(data = subset(Resultmat_clean, (Na_peak - Na_bkg) > 6E-3), # Add labels for points outside plot area (top)
         aes(x = Plot_X,
             y = rep(6E-3, length(Plot_X)),
             label = round((Na_peak - Na_bkg) * 1000, 1),
-            color = Species,
-            alpha = Na_peak > Na_bkg)
+            color = Species)
     ) +
     geom_text_repel(data = subset(Resultmat_clean, (Na_mean - Na_bkg) < -1E-3), # Add labels for points outside plot area (bottom)
         aes(x = Plot_X,
             y = rep(-1E-3, length(Plot_X)),
             label = round((Na_mean - Na_bkg) * 1000, 1),
-            color = Species,
-            alpha = Na_mean > Na_bkg)
+            color = Species)
     ) +
     geom_hline(yintercept = 0,
         linetype = "dashed") +
@@ -381,33 +377,28 @@ TEpeaks_plot_Na <- ggplot(Resultmat_clean) +
 TEpeaks_plot_Mg <- ggplot(Resultmat_clean) +
     geom_point(aes(Plot_X,
             Mg_mean - Mg_bkg,
-            alpha = Mg_mean > Mg_bkg,
             color = Species)
     ) +
     geom_point(aes(Plot_X,
             Mg_peak - Mg_bkg,
-            alpha = Mg_peak > Mg_bkg,
             color = Species)
     ) +
     geom_linerange(aes(x = Plot_X,
             ymin = Mg_mean - Mg_bkg,
             ymax = Mg_peak - Mg_bkg,
-            color = Species,
-            alpha = Mg_peak > Mg_bkg)
+            color = Species)
     ) +
     geom_text_repel(data = subset(Resultmat_clean, (Mg_peak - Mg_bkg) > 4E-3), # Add labels for points outside plot area (top)
         aes(x = Plot_X,
             y = rep(4E-3, length(Plot_X)),
             label = round((Mg_peak - Mg_bkg) * 1000, 1),
-            color = Species,
-            alpha = Mg_peak > Mg_bkg)
+            color = Species)
     ) +
     geom_text_repel(data = subset(Resultmat_clean, (Mg_mean - Mg_bkg) < -5E-4), # Add labels for points outside plot area (bottom)
         aes(x = Plot_X,
             y = rep(-5E-4, length(Plot_X)),
             label = round((Mg_mean - Mg_bkg) * 1000, 1),
-            color = Species,
-            alpha = Mg_mean > Mg_bkg)
+            color = Species)
     ) +
     geom_hline(yintercept = 0,
         linetype = "dashed") +
@@ -425,33 +416,28 @@ TEpeaks_plot_Mg <- ggplot(Resultmat_clean) +
 TEpeaks_plot_Mn <- ggplot(Resultmat_clean) +
     geom_point(aes(Plot_X,
             Mn_mean - Mn_bkg,
-            alpha = Mn_mean > Mn_bkg,
             color = Species)
     ) +
     geom_point(aes(Plot_X,
             Mn_peak - Mn_bkg,
-            alpha = Mn_peak > Mn_bkg,
             color = Species)
     ) +
     geom_linerange(aes(x = Plot_X,
             ymin = Mn_mean - Mn_bkg,
             ymax = Mn_peak - Mn_bkg,
-            color = Species,
-            alpha = Mn_peak > Mn_bkg)
+            color = Species)
     ) +
     geom_text_repel(data = subset(Resultmat_clean, (Mn_peak - Mn_bkg) > 1E-4), # Add labels for points outside plot area (top)
         aes(x = Plot_X,
             y = rep(1E-4, length(Plot_X)),
             label = round((Mn_peak - Mn_bkg) * 1000, 2),
-            color = Species,
-            alpha = Mn_peak > Mn_bkg)
+            color = Species)
     ) +
     geom_text_repel(data = subset(Resultmat_clean, (Mn_mean - Mn_bkg) < -2E-5), # Add labels for points outside plot area (bottom)
         aes(x = Plot_X,
             y = rep(-2E-5, length(Plot_X)),
             label = round((Mn_mean - Mn_bkg) * 1000, 2),
-            color = Species,
-            alpha = Mn_mean > Mn_bkg)
+            color = Species)
     ) +
     geom_hline(yintercept = 0,
         linetype = "dashed") +
@@ -469,33 +455,28 @@ TEpeaks_plot_Mn <- ggplot(Resultmat_clean) +
 TEpeaks_plot_Sr <- ggplot(Resultmat_clean) +
     geom_point(aes(Plot_X,
             Sr_mean - Sr_bkg,
-            alpha = Sr_mean > Sr_bkg,
             color = Species)
     ) +
     geom_point(aes(Plot_X,
             Sr_peak - Sr_bkg,
-            alpha = Sr_peak > Sr_bkg,
             color = Species)
     ) +
     geom_linerange(aes(x = Plot_X,
             ymin = Sr_mean - Sr_bkg,
             ymax = Sr_peak - Sr_bkg,
-            color = Species,
-            alpha = Sr_peak > Sr_bkg)
+            color = Species)
     ) +
     geom_text_repel(data = subset(Resultmat_clean, (Sr_peak - Sr_bkg) > 3E-3), # Add labels for points outside plot area (top)
         aes(x = Plot_X,
             y = rep(3E-3, length(Plot_X)),
             label = round((Sr_peak - Sr_bkg) * 1000, 1),
-            color = Species,
-            alpha = Sr_peak > Sr_bkg)
+            color = Species)
     ) +
     geom_text_repel(data = subset(Resultmat_clean, (Sr_mean - Sr_bkg) < -5E-4), # Add labels for points outside plot area (bottom)
         aes(x = Plot_X,
             y = rep(-5E-4, length(Plot_X)),
             label = round((Sr_mean - Sr_bkg) * 1000, 1),
-            color = Species,
-            alpha = Sr_mean > Sr_bkg)
+            color = Species)
     ) +
     geom_hline(yintercept = 0,
         linetype = "dashed") +
@@ -513,32 +494,27 @@ TEpeaks_plot_Sr <- ggplot(Resultmat_clean) +
 TEpeaks_plot_Ba <- ggplot(Resultmat_clean) +
     geom_point(aes(Plot_X,
             Ba_mean - Ba_bkg,
-            alpha = Ba_mean > Ba_bkg,
             color = Species)
     ) +
     geom_point(aes(Plot_X,
             Ba_peak - Ba_bkg,
-            alpha = Ba_peak > Ba_bkg,
             color = Species)
     ) +
     geom_linerange(aes(x = Plot_X,
             ymin = Ba_mean - Ba_bkg,
             ymax = Ba_peak - Ba_bkg,
-            alpha = Ba_peak > Ba_bkg,
             color = Species)
     ) +
     geom_text_repel(data = subset(Resultmat_clean, (Ba_peak - Ba_bkg) > 3E-6), # Add labels for points outside plot area (top)
         aes(x = Plot_X,
             y = rep(3E-6, length(Plot_X)),
             label = round((Ba_peak - Ba_bkg) * 10 ^ 6, 0),
-            alpha = Ba_peak > Ba_bkg,
             color = Species)
     ) +
     geom_text_repel(data = subset(Resultmat_clean, (Ba_mean - Ba_bkg) < -5E-7), # Add labels for points outside plot area (bottom)
         aes(x = Plot_X,
             y = rep(-5E-7, length(Plot_X)),
             label = round((Ba_mean - Ba_bkg) * 10 ^ 6, 0),
-            alpha = Ba_mean > Ba_bkg,
             color = Species)
     ) +
     geom_hline(yintercept = 0,
