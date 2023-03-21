@@ -366,7 +366,7 @@ TEpeaks_plot_Na <- ggplot(Resultmat_clean) +
     scale_x_continuous("Specimen",
         breaks = unique(floor(Resultmat_clean$Plot_X)),
         labels = unique(Resultmat_clean$Specimen)) +
-    scale_y_continuous("Na/Ca - Na/Ca_bkg\n[mmol/mol]",
+    scale_y_continuous("Na/Ca - Na/Ca_bkg\n(mmol/mol)",
         breaks = seq(-1E-3, 6E-3, 1E-3),
         labels = seq(-1, 6, 1)) +
     coord_cartesian(ylim = c(-1E-3, 6E-3)) +
@@ -405,7 +405,7 @@ TEpeaks_plot_Mg <- ggplot(Resultmat_clean) +
     scale_x_continuous("Specimen",
         breaks = unique(floor(Resultmat_clean$Plot_X)),
         labels = unique(Resultmat_clean$Specimen)) +
-    scale_y_continuous("Mg/Ca - Mg/Ca_bkg\n[mmol/mol]",
+    scale_y_continuous("Mg/Ca - Mg/Ca_bkg\n(mmol/mol)",
         breaks = seq(-5E-4, 4E-3, 5E-4),
         labels = seq(-0.5, 4, 0.5)) +
     coord_cartesian(ylim = c(-5E-4, 4E-3)) +
@@ -444,7 +444,7 @@ TEpeaks_plot_Mn <- ggplot(Resultmat_clean) +
     scale_x_continuous("Specimen",
         breaks = unique(floor(Resultmat_clean$Plot_X)),
         labels = unique(Resultmat_clean$Specimen)) +
-    scale_y_continuous("Mn/Ca - Mn/Ca_bkg\n[umol/mol]",
+    scale_y_continuous("Mn/Ca - Mn/Ca_bkg\n(umol/mol)",
         breaks = seq(-2E-5, 1E-4, 2E-5),
         labels = seq(-20, 100, 20)) +
     coord_cartesian(ylim = c(-2E-5, 1E-4)) +
@@ -483,7 +483,7 @@ TEpeaks_plot_Sr <- ggplot(Resultmat_clean) +
     scale_x_continuous("Specimen",
         breaks = unique(floor(Resultmat_clean$Plot_X)),
         labels = unique(Resultmat_clean$Specimen)) +
-    scale_y_continuous("Sr/Ca - Sr/Ca_bkg\n[mmol/mol]",
+    scale_y_continuous("Sr/Ca - Sr/Ca_bkg\n(mmol/mol)",
         breaks = seq(-5E-4, 3E-3, 5E-4),
         labels = seq(-0.5, 3, 0.5)) +
     coord_cartesian(ylim = c(-5E-4, 3E-3)) +
