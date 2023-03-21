@@ -1,4 +1,5 @@
 # Plot XRF profiles of Sr spiking
+# Project "LAICPMS_Sr_spiking"
 
 require(tidyverse)
 require(RColorBrewer)
@@ -48,11 +49,11 @@ Profile_plot_Sr_XRF_offset <- ggplot(dat) +
             ymin = 1.5 + as.numeric(Specimen_id) * 2,
             fill = Specimen),
         alpha = 0.3) +
-    scale_y_continuous("[Sr]/[Ca] (mmol/mol)",
+    scale_y_continuous("Sr/Ca (mmol/mol)",
         breaks = seq(0, 20, 2),
         labels = seq(0, 20, 2),
         limits = c(0, 20)) +
-    scale_x_continuous("Distance from ventral margin [mm]") +
+    scale_x_continuous("Distance from ventral margin (mm)") +
     ggtitle("Offset (+ 2 mmol/mol) Sr/Ca curves") +
     coord_cartesian(xlim = c(0, 8), ylim = c(0, 15)) +
     theme_bw()
@@ -65,7 +66,7 @@ Profile_plot_Sr_G003 <- ggplot(dat) +
             SrCa * 1000,
             col = Specimen),
         col = brewer.pal(5, "Dark2")[1]) +
-    scale_y_continuous("[Sr]/[Ca]\n(mmol/mol)") +
+    scale_y_continuous("Sr/Ca\n(mmol/mol)") +
     scale_x_continuous("Distance from ventral margin [mm]") +
     coord_cartesian(xlim = c(0, 8)) +
     theme_bw()
@@ -104,7 +105,7 @@ Profile_plot_Sr_G511 <- ggplot(dat) +
             SrCa * 1000,
             col = Specimen),
         col = brewer.pal(5, "Dark2")[1]) +
-    scale_y_continuous("[Sr]/[Ca]\n(mmol/mol)") +
+    scale_y_continuous("Sr/Ca\n(mmol/mol)") +
     scale_x_continuous("Distance from ventral margin [mm]") +
     coord_cartesian(xlim = c(0, 8)) +
     theme_bw()
@@ -143,7 +144,7 @@ Profile_plot_Sr_G600 <- ggplot(dat) +
             SrCa * 1000,
             col = Specimen),
         col = brewer.pal(5, "Dark2")[1]) +
-    scale_y_continuous("[Sr]/[Ca]\n(mmol/mol)") +
+    scale_y_continuous("Sr/Ca\n(mmol/mol)") +
     scale_x_continuous("Distance from ventral margin [mm]") +
     coord_cartesian(xlim = c(0, 8)) +
     theme_bw()
