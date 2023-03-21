@@ -1,4 +1,5 @@
 # Plot smothed Sr profiles for Figure 1
+# Project "LAICPMS_Sr_spiking"
 
 require(tidyverse)
 require(RColorBrewer)
@@ -38,7 +39,7 @@ for(i in dfnames_batch1){
     df$Specimen <- strsplit(i, "_")[[1]][2]
     df$Species <- strsplit(i, "_")[[1]][1]
     df$Profile <- strsplit(i, "_")[[1]][3]
-    df$Depth2 <- max(df$Depth) - df$Depth
+    df$Depth2 <- max(df$Depth) - df$Depth # Invert growth direction
     assign(i, df)
 }
 
@@ -56,12 +57,12 @@ LA_combined_batch1 <- bind_rows(Cedule_G003_1,
 
 # Create profile plots of batch1 data
 Profile_plot_Sr_offset_batch1 <- ggplot(LA_combined_batch1) +
-    geom_point(aes(Depth,
+    geom_point(aes(Depth2,
             SrCa + as.numeric(Specimen_id) * 2 - 2,
             col = Specimen),
         alpha = 0.1,
         size = 0.1) +
-    scale_y_continuous("[Sr]/[Ca] (mmol/mol)",
+    scale_y_continuous("Sr/Ca (mmol/mol)",
         breaks = seq(0, 23, 5),
         labels = seq(0, 23, 5)) +
     scale_x_continuous("Distance from ventral margin [mm]") +
@@ -155,7 +156,7 @@ Profile_plot_Sr_offset_all <- ggplot(LA_combined_smooth) +
             col = Species),
         alpha = 0.1,
         size = 0.1) +
-    scale_y_continuous("[Sr]/[Ca] (mmol/mol)",
+    scale_y_continuous("Sr/Ca (mmol/mol)",
         breaks = seq(0, 20, 2),
         labels = seq(0, 20, 2),
         limits = c(0, 20)) +
@@ -170,7 +171,7 @@ Profile_plot_Sr_offset_all2 <- ggplot(LA_combined_smooth) +
             col = Species),
         alpha = 0.1,
         size = 0.1) +
-    scale_y_continuous("[Sr]/[Ca] (mmol/mol)",
+    scale_y_continuous("Sr/Ca (mmol/mol)",
         breaks = seq(0, 20, 2),
         labels = seq(0, 20, 2),
         limits = c(0, 20)) +
@@ -186,7 +187,7 @@ Profile_plot_Sr_Cedule <- ggplot(LA_combined_smooth) +
             col = Specimen),
         alpha = 0.1,
         size = 0.1) +
-    scale_y_continuous("[Sr]/[Ca] (mmol/mol)",
+    scale_y_continuous("Sr/Ca (mmol/mol)",
         breaks = seq(0, 20, 5),
         labels = seq(0, 20, 5),
         limits = c(0, 20)) +
@@ -196,13 +197,13 @@ Profile_plot_Sr_Cedule <- ggplot(LA_combined_smooth) +
 
 # Isolate O. edulis data
 Profile_plot_Sr_Oedulis <- ggplot(LA_combined_smooth) +
-    geom_point(data = subset(LA_combined_smooth, Species == "Oedulis"),
+    geom_point(data = subset(LA_combined_smooth, Species == "Oedulis" & Specimen_id %in% c(4, 6, 8)),
         aes(Distance / 1000,
             SrCa + as.numeric(Specimen_id) - 4,
             col = Specimen),
         alpha = 0.1,
         size = 0.1) +
-    scale_y_continuous("[Sr]/[Ca] (mmol/mol)",
+    scale_y_continuous("Sr/Ca (mmol/mol)",
         breaks = seq(0, 10, 2),
         labels = seq(0, 10, 2),
         limits = c(0, 8)) +
@@ -218,7 +219,7 @@ Profile_plot_Sr_Oedulis_nochalky <- ggplot(LA_combined_smooth) +
             col = Specimen),
         alpha = 0.1,
         size = 0.1) +
-    scale_y_continuous("[Sr]/[Ca] (mmol/mol)",
+    scale_y_continuous("Sr/Ca (mmol/mol)",
         breaks = seq(0, 10, 2),
         labels = seq(0, 10, 2),
         limits = c(0, 10)) +
@@ -234,7 +235,7 @@ Profile_plot_Sr_Medulis <- ggplot(LA_combined_smooth) +
             col = Specimen),
         alpha = 0.1,
         size = 0.1) +
-    scale_y_continuous("[Sr]/[Ca] (mmol/mol)",
+    scale_y_continuous("Sr/Ca (mmol/mol)",
         breaks = seq(0, 10, 2),
         labels = seq(0, 10, 2),
         limits = c(0, 10)) +
@@ -260,5 +261,6 @@ Species_combined <- ggarrange(
         coord_cartesian(ylim = c(0, 10),
             xlim = c(0, 36)),
     ncol = 2,
-    nrow = 2
+    nrow = 2,
+    labels = c("A", "B", "C", "D")
 )
